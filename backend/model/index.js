@@ -6,7 +6,7 @@ const Task = require('./Task.model');
 
 
 
-module.exports ={
-    db,
-Task
+module.exports = {
+  db,
+  Task
 }

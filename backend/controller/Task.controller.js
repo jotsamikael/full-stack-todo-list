@@ -50,8 +50,7 @@ exports.updateTask = async (req, res, next) => {
       title: req.body.title ?? task.title,
       description: req.body.description ?? task.description,
     };
-
-    await task.update(updatedData); feature/backend-crud-tasks
+    await task.update(updatedData);
 
     res.status(200).json({
       message: 'Task updated successfully',

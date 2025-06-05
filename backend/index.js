@@ -2,7 +2,7 @@ const express = require("express");
 const ENV = require("./config");
 const { db } = require("./model/index");
 const cookieParser = require('cookie-parser');
-
+const TaskRouter = require('./router/Task.router')
 
 const app = express();
 app.use(express.json())
@@ -15,8 +15,23 @@ const PORT = ENV.PORT || 8889;
 
 
 //Prefix
+app.use('/api/task',TaskRouter)
 
 
+//Error handeling middleware
+app.use((err,req,res,next)=>{
+  const status = err.status || 500;
+  const message = err.message || "An error occured";
+  const details = err.details || null;
+
+  res.status(status).json({
+    status,
+    message,
+    details
+  })
+
+
+})
 
 //server
 const startServer = async () => {
