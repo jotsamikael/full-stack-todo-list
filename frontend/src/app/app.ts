@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { AddTodo } from './add-todo/add-todo';
 import { UpdateTodo } from './update-todo/update-todo';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { Guide } from './guide/guide';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ import { UpdateTodo } from './update-todo/update-todo';
     MatButtonModule,
     TodoItem,
     MatPaginator,
+    MatTooltipModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -131,6 +134,7 @@ export class App implements OnInit {
   }
 
   openDoc() {
-throw new Error('Method not implemented.');
+     this.dialog.open(Guide, {width:'500px', height:'400px'
+    });
 }
 }

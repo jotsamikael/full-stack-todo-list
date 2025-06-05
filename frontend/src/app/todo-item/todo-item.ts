@@ -5,11 +5,12 @@ import {MatCardModule} from '@angular/material/card';
 import { Task } from '../todobackendservice/models';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   standalone: true,
   selector: 'app-todo-item',
-  imports: [MatCardModule, MatButtonModule,DatePipe,MatIconModule],
+  imports: [MatCardModule, MatButtonModule,DatePipe,MatIconModule,MatTooltipModule],
   templateUrl: './todo-item.html',
   styleUrl: './todo-item.scss'
 })
