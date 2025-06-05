@@ -10,6 +10,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TaskService } from '../todobackendservice/services/task.service';
 import { FormBuilderService } from '../todobackendservice/services/form-builder';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-todo',
@@ -48,12 +49,15 @@ this.taskService.taskCreatePost({
   next: () => {
     this.dialogRef.close(true);
     this.processing = false;
+    Swal.fire('Created!', 'Task created successfully!', 'success');
 
   },
   error: (error) => {
     console.error('Error creating task:', error);
     this.errorMsg = 'Failed to create task.';
     this.processing = false;
+    Swal.fire('Error!', `Error: ${error}`, 'error');
+
   }
 });
 

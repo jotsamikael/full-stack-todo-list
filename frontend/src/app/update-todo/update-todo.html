@@ -1,25 +1,27 @@
-<h2 mat-dialog-title>Update Task #: {{data.taskToUpdate.idTask}}</h2>
+<h2 mat-dialog-title>Update Task #: {{this.data.task.idTask}}</h2>
 <form [formGroup]="updateForm" class="full-form">
-<mat-form-field class="full-width">
-  <mat-label>Title</mat-label>
-  <input matInput formControlName="title" />
-  <small *ngIf="f['title'].touched && f['title'].invalid" class="error">  
-    <mat-error *ngIf="f['title'].errors?.['required']">Title is required.</mat-error>
-    <mat-error *ngIf="f['title'].errors?.['maxlength']">title should be less than 100 characters.</mat-error>
-  </small>
-</mat-form-field> <br>
-<mat-form-field class="full-width">
-  <mat-label>Description</mat-label>
-  <textarea matInput formControlName="description"></textarea>
-  <small *ngIf="f['description'].touched && f['description'].invalid" class="error">  
-    <mat-error *ngIf="f['description'].errors?.['description']">Description is required.</mat-error>
-    <mat-error *ngIf="f['description'].errors?.['description']">Description should be less than 500 characters.</mat-error>
-  </small>
-</mat-form-field>
-<mat-dialog-actions align="end">
-<mat-spinner [diameter]="25" *ngIf="this.processing"></mat-spinner>
+  <mat-form-field class="full-width">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    <small *ngIf="f['title'].touched && f['title'].invalid" class="error">  
+      <mat-error *ngIf="f['title'].errors?.['required']">Title is required.</mat-error>
+      <mat-error *ngIf="f['title'].errors?.['maxlength']">title should be less than 100 characters.</mat-error>
+    </small>
+  </mat-form-field> <br>
+  <mat-form-field class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <small *ngIf="f['description'].touched && f['description'].invalid" class="error">  
+      <mat-error *ngIf="f['description'].errors?.['description']">Description is required.</mat-error>
+      <mat-error *ngIf="f['description'].errors?.['description']">Description should be less than 500
+        characters.</mat-error>
+    </small>
+  </mat-form-field>
+  <mat-dialog-actions align="end">
+    <mat-spinner [diameter]="25" *ngIf="this.processing"></mat-spinner>
 
-  <button matButton mat-dialog-close>Cancel</button>
-  <button  matFab extended (click)="createTask()" [mat-dialog-close]="true" cdkFocusInitial [disabled]="!updateForm.valid || processing">Save</button>
-</mat-dialog-actions>
+    <button matButton mat-dialog-close>Cancel</button>
+    <button matFab extended (click)="updateTask()" [mat-dialog-close]="true" cdkFocusInitial
+      [disabled]="!updateForm.valid || processing">Save</button>
+  </mat-dialog-actions>
 </form>

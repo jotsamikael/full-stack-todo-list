@@ -1,5 +1,14 @@
-  <!-- Add new todo btn -->
-<mat-grid-list cols="1" rowHeight="75px" style="padding: 5px 0px 15px 0px;">
+<!-- Add new todo btn -->
+<mat-grid-list cols="1" rowHeight="40px" style="padding: 5px 0px 15px 0px">
+  <mat-grid-tile>
+    <a routerLink="">
+      <img src="logo.jpg" alt="logo" width="40px" />
+    </a>
+    <h5 matTooltip="See doc" (click)="openDoc()" class="doc-link">Full stack todo ⍰</h5>
+  </mat-grid-tile>
+</mat-grid-list>
+<!-- Add new todo btn -->
+<mat-grid-list cols="1" rowHeight="70px" style="padding: 5px 0px 15px 0px">
   <mat-grid-tile>
     <button matFab extended (click)="openCreatDialog()">
       <mat-icon>work</mat-icon>
@@ -7,24 +16,38 @@
     </button>
   </mat-grid-tile>
 </mat-grid-list>
-  <!-- List all todo -->
-<mat-grid-list cols="1" rowHeight="500px"  style="padding: 5px 0px 5px 0px;">
+<!-- List all todo -->
+<mat-grid-list cols="1" rowHeight="450px" style="padding: 5px 0px 5px 0px">
   <mat-grid-tile>
-    <div style="height:100%;overflow-y: auto;display: flex; flex-direction: column; gap: 8px;">
+    <div
+      style="
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      "
+    >
       <div *ngFor="let task of tasks">
-        <app-todo-item [item]="task" (delete)="delete($event)"></app-todo-item>
+        <app-todo-item
+          [item]="task"
+          (update)="update($event)"
+          (delete)="delete($event)"
+        ></app-todo-item>
       </div>
     </div>
   </mat-grid-tile>
-
 </mat-grid-list>
- <!-- List all todo -->
-<mat-grid-list cols="1" rowHeight="100px"  style="padding: 5px 0px 5px 0px;">
+<!-- List all todo -->
+<mat-grid-list cols="1" rowHeight="100px" style="padding: 5px 0px 5px 0px">
   <mat-grid-tile>
-    <mat-paginator [length]="totalTasks" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
-      (page)="onPageChange($event)">
+    <mat-paginator
+      [length]="totalTasks"
+      [pageSize]="limit"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      showFirstLastButtons
+      (page)="onPageChange($event)"
+    >
     </mat-paginator>
   </mat-grid-tile>
-
 </mat-grid-list>
-

@@ -7,29 +7,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { TaskService } from './todobackendservice/services';
 import { Task } from './todobackendservice/models/task';
 import { CommonModule } from '@angular/common';
-import { TodoItem } from "./todo-item/todo-item";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import {
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { TodoItem } from './todo-item/todo-item';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { AddTodo } from './add-todo/add-todo';
 import { UpdateTodo } from './update-todo/update-todo';
 
-
-
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, MatGridListModule, MatIconModule, MatDividerModule, MatButtonModule, TodoItem, MatPaginator],
+  imports: [
+    CommonModule,
+    MatGridListModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    TodoItem,
+    MatPaginator,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App implements OnInit {
-
 
   protected title = 'frontend';
   task: Task | undefined;
@@ -42,16 +41,10 @@ export class App implements OnInit {
   readonly dialog = inject(MatDialog);
   readonly taskToUpdate = model('');
 
-
-  constructor(private taskService: TaskService) {
-
-  }
-
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.getAllTasks()
-
-
+    this.getAllTasks();
   }
 
   getAllTasks(page: number = 1, limit: number = 5): void {
@@ -71,7 +64,7 @@ export class App implements OnInit {
         console.error('Error fetching tasks:', error);
         this.errorMsg = 'Failed to load tasks. Please try again.';
         this.isLoading = false;
-      }
+      },
     });
   }
 
@@ -82,37 +75,34 @@ export class App implements OnInit {
     this.getAllTasks(pageIndex, pageSize);
   }
 
- /** Call delete task endpoint*/
+  /** Call delete task endpoint*/
   deleteTask(taskId: number) {
-    this.taskService.taskDeleteIdDelete({ id: taskId }).subscribe(
-      {
-        next: () => {
-          //refresh data
-          this.getAllTasks();
-        },
-        error: (error) => {
-          console.error('Error Deleting tasks:', error);
-          this.errorMsg = 'Failed to load tasks. Please try again.';
-
-        }
-      }
-    )
+    this.taskService.taskDeleteIdDelete({ id: taskId }).subscribe({
+      next: () => {
+        //refresh data
+        this.getAllTasks();
+      },
+      error: (error) => {
+        console.error('Error Deleting tasks:', error);
+        this.errorMsg = 'Failed to load tasks. Please try again.';
+      },
+    });
   }
 
- /** Open delete task alert */
+  /** Open delete task alert */
 
   delete(taskId: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, delete it!'
-    }).then(result => {
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
       if (result.value) {
-        this.deleteTask(taskId)
+        this.deleteTask(taskId);
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
     });
@@ -120,27 +110,27 @@ export class App implements OnInit {
 
   /** Open create task dialog */
   openCreatDialog() {
-    const dialogRef = this.dialog.open(AddTodo,{width:'500px'});
+    const dialogRef = this.dialog.open(AddTodo, { width: '500px' });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      this.getAllTasks()
-
+      this.getAllTasks(); //reload tasks
     });
-}
+  }
 
-/** Open update task dialog */
-update(task:Task){
-  console.log('open update 2')
-  const dialogRef = this.dialog.open(UpdateTodo, {
-      data: {task: this.taskToUpdate()},
+  /** Open update task dialog */
+  update(task: Task) {
+    const dialogRef = this.dialog.open(UpdateTodo, {width:'500px',
+      data: { task: task },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result !== undefined) {
-        
-      }
+    dialogRef.afterClosed().subscribe((result) => {
+    //console.log(`Dialog result: ${result}`);
+      this.getAllTasks(); //reload tasks
     });
+  }
+
+  openDoc() {
+throw new Error('Method not implemented.');
 }
 }

@@ -118,9 +118,9 @@ exports.getAllTasks = async (req, res, next) => {
  */
 exports.updateTask = async (req, res, next) => {
   try {
+    console.log(req.body)
     const id = req.params.id;
     const task = await Task.findByPk(id);
-
     if (!task) {
       return next(createError(404, 'Task not found'));
     }
