@@ -3,6 +3,7 @@ const ENV = require("./config");
 const { db } = require("./model/index");
 const cookieParser = require('cookie-parser');
 const TaskRouter = require('./router/Task.router')
+const setupSwagger = require('./config/swagger');
 
 const app = express();
 app.use(express.json())
@@ -17,6 +18,8 @@ const PORT = ENV.PORT || 8889;
 //Prefix
 app.use('/api/task',TaskRouter)
 
+// Load swagger
+setupSwagger(app);
 
 //Error handeling middleware
 app.use((err,req,res,next)=>{

@@ -34,7 +34,7 @@ const options = {
       ...schemas.components
     }
   },
-  apis: ['./routes/*.js', './controller/*.js'], // Swagger annotations source
+  apis: ['./routes/*.js', './controller/*.js'], 
 };
 
 const swaggerSpec = swaggerJSDoc(options);

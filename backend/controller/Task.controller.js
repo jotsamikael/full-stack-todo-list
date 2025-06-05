@@ -4,6 +4,27 @@ const createError = require('../middleware/error')
 const pagination = require("../utils/paginate");
 
 
+/**
+ * @swagger
+ * /task/create:
+ *   post:
+ *     summary: Create a new task
+ *     tags: [Tasks]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Task created
+ */
 exports.createTask = async (req, res, next) => {
 
 try {
@@ -20,6 +41,36 @@ next(createError(500, "Error occurred during Task creation", error.message));
 }
 }
 
+/**
+ * @swagger
+ * /task/get-all:
+ *   get:
+ *     summary: Get all tasks (paginated)
+ *     tags: [Task]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of tasks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: integer
+ *                 rows:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Task'
+ */
 exports.getAllTasks = async (req, res, next) => {
    try {
     const { limit, offset } = pagination.paginate(req);
@@ -37,6 +88,35 @@ exports.getAllTasks = async (req, res, next) => {
 }
 
 
+/**
+ * @swagger
+ * /task/update/{id}:
+ *   put:
+ *     summary: Update a task
+ *     tags: [Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Task updated
+ */
 exports.updateTask = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -62,6 +142,22 @@ exports.updateTask = async (req, res, next) => {
 };
 
 
+/**
+ * @swagger
+ * /task/delete/{id}:
+ *   delete:
+ *     summary: Deleted a task (soft delete)
+ *     tags: [Task]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Task deleted
+ */
 exports.deleteTask = async (req, res, next) => {
   try {
     const id = req.params.id;
