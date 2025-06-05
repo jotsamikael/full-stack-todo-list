@@ -9,10 +9,7 @@ const ENV = {
     PASSWORD:process.env.PASSWORD,
     DATABASE:process.env.DATABASE,
     DIALECT: process.env.DIALECT,
-    TOKEN:process.env.TOKEN,
-    PORT_DATABASE: process.env.PORT_DATABASE,
-    BETTERSTACK_TOKEN: process.env.BETTERSTACK_TOKEN
-
+  
 }
 
 module.exports = ENV;
