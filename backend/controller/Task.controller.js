@@ -94,8 +94,6 @@ exports.getAllTasks = async (req, res, next) => {
  *   put:
  *     summary: Update a task
  *     tags: [Tasks]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
