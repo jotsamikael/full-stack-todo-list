@@ -61,3 +61,17 @@ exports.updateTask = async (req, res, next) => {
     next(createError(500, 'Error updating task', error.message));
   }
 };
+
+
+exports.deleteTask = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const result = await Task.update({ is_archived: true }, { //soft delete
+      where: { idTask: id },
+    });
+
+    res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    next(createError(500, 'Error deleting task', error.message));
+  }
+};
