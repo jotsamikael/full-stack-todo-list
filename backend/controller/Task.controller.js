@@ -37,3 +37,27 @@ exports.getAllTasks = async (req, res, next) => {
 }
 
 
+exports.updateTask = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const task = await Task.findByPk(id);
+
+    if (!task) {
+      return next(createError(404, 'Task not found'));
+    }
+
+    const updatedData = {
+      title: req.body.title ?? task.title,
+      description: req.body.description ?? task.description,
+    };
+
+    await task.update(updatedData);
+
+    res.status(200).json({
+      message: 'Task updated successfully',
+      data: task,
+    });
+  } catch (error) {
+    next(createError(500, 'Error updating task', error.message));
+  }
+};
