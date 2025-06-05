@@ -56,7 +56,7 @@
       "post": {
         "summary": "Create a new task",
         "tags": [
-          "Tasks"
+          "Task"
         ],
         "requestBody": {
           "required": true,
@@ -134,7 +134,7 @@
       "put": {
         "summary": "Update a task",
         "tags": [
-          "Tasks"
+          "Task"
         ],
         "parameters": [
           {

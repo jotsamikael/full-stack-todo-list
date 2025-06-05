@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Add Task</h2>
-<form [formGroup]="createForm" class="full-form">
+<h2 mat-dialog-title>Update Task #: {{data.taskToUpdate.idTask}}</h2>
+<form [formGroup]="updateForm" class="full-form">
 <mat-form-field class="full-width">
   <mat-label>Title</mat-label>
   <input matInput formControlName="title" />
@@ -20,6 +20,6 @@
 <mat-spinner [diameter]="25" *ngIf="this.processing"></mat-spinner>
 
   <button matButton mat-dialog-close>Cancel</button>
-  <button  matFab extended (click)="createTask()" [mat-dialog-close]="true" cdkFocusInitial [disabled]="!createForm.valid || processing">Save</button>
+  <button  matFab extended (click)="createTask()" [mat-dialog-close]="true" cdkFocusInitial [disabled]="!updateForm.valid || processing">Save</button>
 </mat-dialog-actions>
 </form>

@@ -1,14 +1,14 @@
   <!-- Add new todo btn -->
 <mat-grid-list cols="1" rowHeight="75px" style="padding: 5px 0px 15px 0px;">
   <mat-grid-tile>
-    <button matFab extended>
+    <button matFab extended (click)="openCreatDialog()">
       <mat-icon>work</mat-icon>
       ADD TODO
     </button>
   </mat-grid-tile>
 </mat-grid-list>
   <!-- List all todo -->
-<mat-grid-list cols="1" rowHeight="400px"  style="padding: 5px 0px 5px 0px;">
+<mat-grid-list cols="1" rowHeight="500px"  style="padding: 5px 0px 5px 0px;">
   <mat-grid-tile>
     <div style="height:100%;overflow-y: auto;display: flex; flex-direction: column; gap: 8px;">
       <div *ngFor="let task of tasks">

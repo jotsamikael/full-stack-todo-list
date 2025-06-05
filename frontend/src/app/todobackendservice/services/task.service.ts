@@ -12,15 +12,52 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { Task } from '../models/task';
+import { taskCreatePost } from '../fn/task/task-create-post';
+import { TaskCreatePost$Params } from '../fn/task/task-create-post';
 import { taskDeleteIdDelete } from '../fn/task/task-delete-id-delete';
 import { TaskDeleteIdDelete$Params } from '../fn/task/task-delete-id-delete';
 import { taskGetAllGet } from '../fn/task/task-get-all-get';
 import { TaskGetAllGet$Params } from '../fn/task/task-get-all-get';
+import { taskUpdateIdPut } from '../fn/task/task-update-id-put';
+import { TaskUpdateIdPut$Params } from '../fn/task/task-update-id-put';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `taskCreatePost()` */
+  static readonly TaskCreatePostPath = '/task/create';
+
+  /**
+   * Create a new task.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskCreatePost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskCreatePost$Response(params: TaskCreatePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return taskCreatePost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Create a new task.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskCreatePost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskCreatePost(params: TaskCreatePost$Params, context?: HttpContext): Observable<void> {
+    return this.taskCreatePost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
   }
 
   /** Path part for operation `taskGetAllGet()` */
@@ -65,6 +102,39 @@ export class TaskService extends BaseService {
 'count'?: number;
 'rows'?: Array<Task>;
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `taskUpdateIdPut()` */
+  static readonly TaskUpdateIdPutPath = '/task/update/{id}';
+
+  /**
+   * Update a task.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskUpdateIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskUpdateIdPut$Response(params: TaskUpdateIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return taskUpdateIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Update a task.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskUpdateIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskUpdateIdPut(params: TaskUpdateIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.taskUpdateIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

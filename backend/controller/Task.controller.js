@@ -9,7 +9,7 @@ const pagination = require("../utils/paginate");
  * /task/create:
  *   post:
  *     summary: Create a new task
- *     tags: [Tasks]
+ *     tags: [Task]
  *     requestBody:
  *       required: true
  *       content:
@@ -94,7 +94,7 @@ exports.getAllTasks = async (req, res, next) => {
  * /task/update/{id}:
  *   put:
  *     summary: Update a task
- *     tags: [Tasks]
+ *     tags: [Task]
  *     parameters:
  *       - in: path
  *         name: id

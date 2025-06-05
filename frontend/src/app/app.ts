@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +17,8 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { AddTodo } from './add-todo/add-todo';
+import { UpdateTodo } from './update-todo/update-todo';
 
 
 
@@ -28,6 +30,7 @@ import Swal from 'sweetalert2';
 })
 export class App implements OnInit {
 
+
   protected title = 'frontend';
   task: Task | undefined;
   tasks: Task[] = [];
@@ -37,6 +40,8 @@ export class App implements OnInit {
   isLoading: boolean = false;
   errorMsg: string = '';
   readonly dialog = inject(MatDialog);
+  readonly taskToUpdate = model('');
+
 
   constructor(private taskService: TaskService) {
 
@@ -60,7 +65,7 @@ export class App implements OnInit {
         this.tasks = response.rows;
         this.totalTasks = response.count;
         this.isLoading = false;
-        console.log(this.tasks)
+        //console.log(this.tasks)
       },
       error: (error) => {
         console.error('Error fetching tasks:', error);
@@ -70,12 +75,14 @@ export class App implements OnInit {
     });
   }
 
+  /** Listen to pagination event */
   onPageChange($event: PageEvent) {
     const pageIndex = $event.pageIndex + 1;
     const pageSize = $event.pageSize;
     this.getAllTasks(pageIndex, pageSize);
   }
 
+ /** Call delete task endpoint*/
   deleteTask(taskId: number) {
     this.taskService.taskDeleteIdDelete({ id: taskId }).subscribe(
       {
@@ -92,6 +99,7 @@ export class App implements OnInit {
     )
   }
 
+ /** Open delete task alert */
 
   delete(taskId: number) {
     Swal.fire({
@@ -109,4 +117,30 @@ export class App implements OnInit {
       }
     });
   }
+
+  /** Open create task dialog */
+  openCreatDialog() {
+    const dialogRef = this.dialog.open(AddTodo,{width:'500px'});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.getAllTasks()
+
+    });
+}
+
+/** Open update task dialog */
+update(task:Task){
+  console.log('open update 2')
+  const dialogRef = this.dialog.open(UpdateTodo, {
+      data: {task: this.taskToUpdate()},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+        
+      }
+    });
+}
 }

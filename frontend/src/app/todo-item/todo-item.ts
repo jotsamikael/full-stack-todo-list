@@ -15,12 +15,20 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TodoItem {
 
+
 @Input() item:Task | undefined; 
  @Output() delete = new EventEmitter<number>();
+ @Output() update = new EventEmitter<Task>();
 
 
 deleteTask(idTask: number|undefined) {
   this.delete.emit(idTask);
+}
+
+updateTask(task: Task|undefined) {
+    console.log('open update 1')
+  this.update.emit(task);
+
 }
 
 

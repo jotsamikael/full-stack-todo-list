@@ -9,6 +9,6 @@
   </mat-card-header>
   <mat-card-actions>
   <button matButton (click)="deleteTask(item?.idTask)"><mat-icon class="action-icon delete">cancel</mat-icon> Delete</button>
-  <button matButton><mat-icon  class="action-icon">edit</mat-icon> Update</button>
+  <button matButton (click)="updateTask(item)"><mat-icon  class="action-icon">edit</mat-icon> Update</button>
   </mat-card-actions>
 </mat-card>
