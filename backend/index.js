@@ -4,8 +4,17 @@ const { db } = require("./model/index");
 const cookieParser = require('cookie-parser');
 const TaskRouter = require('./router/Task.router')
 const setupSwagger = require('./config/swagger');
+const cors = require('cors');
+
+
 
 const app = express();
+// Enable CORS for all routes
+app.use(cors({
+  origin: 'http://localhost:4200', //Angular app
+}));
+
+
 app.use(express.json())
 app.use(cookieParser());
 
