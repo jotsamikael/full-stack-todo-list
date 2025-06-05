@@ -9,7 +9,7 @@ const pagination = require("../utils/paginate");
  * /task/create:
  *   post:
  *     summary: Create a new task
- *     tags: [Tasks]
+ *     tags: [Task]
  *     requestBody:
  *       required: true
  *       content:
@@ -79,6 +79,7 @@ exports.getAllTasks = async (req, res, next) => {
       where: { is_archived: false },
       limit,
       offset,
+      order: [['createdAt', 'DESC']]
     });
 
     res.status(200).json(tasks);
@@ -93,9 +94,7 @@ exports.getAllTasks = async (req, res, next) => {
  * /task/update/{id}:
  *   put:
  *     summary: Update a task
- *     tags: [Tasks]
- *     security:
- *       - bearerAuth: []
+ *     tags: [Task]
  *     parameters:
  *       - in: path
  *         name: id
@@ -119,9 +118,9 @@ exports.getAllTasks = async (req, res, next) => {
  */
 exports.updateTask = async (req, res, next) => {
   try {
+    console.log(req.body)
     const id = req.params.id;
     const task = await Task.findByPk(id);
-
     if (!task) {
       return next(createError(404, 'Task not found'));
     }
