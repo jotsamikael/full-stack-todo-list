@@ -1,16 +1,29 @@
-<mat-grid-list cols="1" rowHeight="200px">
   <!-- Add new todo btn -->
+<mat-grid-list cols="1" rowHeight="75px" style="padding: 5px 0px 15px 0px;">
   <mat-grid-tile>
-   <button matFab extended>
-        <mat-icon>work</mat-icon>
-        ADD TODO
-      </button>
+    <button matFab extended>
+      <mat-icon>work</mat-icon>
+      ADD TODO
+    </button>
   </mat-grid-tile>
+</mat-grid-list>
   <!-- List all todo -->
-   <div>
-    <p>Dog</p>
-   </div>
+<mat-grid-list cols="1" rowHeight="400px"  style="padding: 5px 0px 5px 0px;">
   <mat-grid-tile>
-
+    <div style="height:100%;overflow-y: auto;display: flex; flex-direction: column; gap: 8px;">
+      <div *ngFor="let task of tasks">
+        <app-todo-item [item]="task"></app-todo-item>
+      </div>
+    </div>
   </mat-grid-tile>
+
+</mat-grid-list>
+ <!-- List all todo -->
+<mat-grid-list cols="1" rowHeight="100px"  style="padding: 5px 0px 5px 0px;">
+  <mat-grid-tile>
+    <mat-paginator [length]="totalTasks" [pageSize]="limit" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </mat-grid-tile>
+
 </mat-grid-list>

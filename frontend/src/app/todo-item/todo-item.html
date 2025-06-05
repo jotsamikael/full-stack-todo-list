@@ -1,19 +1,14 @@
 <mat-card appearance="outlined">
+  <div class="date-bar">
+  <small matButton>createdAt: {{item?.createdAt | date:'medium'}} </small>
+    <small matButton>updatedAt: {{item?.updatedAt | date:'medium'}}</small>
+  </div>
   <mat-card-header>
-    <mat-card-title> Australian Shepherd</mat-card-title>
-    <mat-card-subtitle>Herding group</mat-card-subtitle>
+    <mat-card-title>{{item?.title}}</mat-card-title>
+    <mat-card-subtitle>{{item?.description}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions>
-    <button matButton>Learn More</button>
-  </mat-card-actions>
-</mat-card>
-<br>
-<mat-card appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>Poodle</mat-card-title>
-    <mat-card-subtitle>Non-sporting group</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions align="end">
-    <button matButton>Learn More</button>
+  <button matButton><mat-icon class="action-icon delete">cancel</mat-icon> Delete</button>
+  <button matButton><mat-icon  class="action-icon">edit</mat-icon> Update</button>
   </mat-card-actions>
 </mat-card>

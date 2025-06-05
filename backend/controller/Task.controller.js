@@ -79,6 +79,7 @@ exports.getAllTasks = async (req, res, next) => {
       where: { is_archived: false },
       limit,
       offset,
+      order: [['createdAt', 'DESC']]
     });
 
     res.status(200).json(tasks);

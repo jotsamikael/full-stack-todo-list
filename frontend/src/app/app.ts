@@ -6,14 +6,19 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { TaskService } from './todobackendservice/services';
 import { Task } from './todobackendservice/models/task';
+import { CommonModule } from '@angular/common';
+import { TodoItem } from "./todo-item/todo-item";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+
 
 @Component({
   selector: 'app-root',
-  imports: [ MatGridListModule, MatIconModule, MatDividerModule,MatButtonModule],
+  imports: [CommonModule, MatGridListModule, MatIconModule, MatDividerModule, MatButtonModule, TodoItem, MatPaginator],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
+
   protected title = 'frontend';
   task: Task | undefined;
   tasks: Task[] = [];
@@ -32,7 +37,7 @@ page = 1;
 
 }
 
-getAllTasks(page: number = 1, limit: number = 10): void {
+getAllTasks(page: number = 1, limit: number = 5): void {
   this.isLoading = true;
   this.errorMsg = '';
   this.limit = limit;
@@ -53,4 +58,9 @@ getAllTasks(page: number = 1, limit: number = 10): void {
   });
 }
 
+onPageChange($event: PageEvent) {
+  const pageIndex = $event.pageIndex + 1; 
+  const pageSize = $event.pageSize;
+  this.getAllTasks(pageIndex, pageSize);
+}
 }
