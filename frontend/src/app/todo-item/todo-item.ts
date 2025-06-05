@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 
@@ -16,9 +16,11 @@ import { MatIconModule } from '@angular/material/icon';
 export class TodoItem {
 
 @Input() item:Task | undefined; 
+ @Output() delete = new EventEmitter<number>();
 
 
-deleteTask(arg0: number|undefined) {
+deleteTask(idTask: number|undefined) {
+  this.delete.emit(idTask);
 }
 
 
