@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql8-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fullstacktodoapp
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - todo-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: node-backend
+    ports:
+      - "8885:8885"
+    depends_on:
+      - db
+    environment:
+      HOST: db
+      USER: root
+      PASSWORD: root
+      DATABASE: fullstacktodoapp
+      DIALECT: mysql
+      PORT_DATABASE: 3306
+    networks:
+      - todo-net
+
+volumes:
+  mysql_data:
+
+networks:
+  todo-net:
